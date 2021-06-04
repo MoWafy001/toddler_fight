@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="style.css">
+    <script>
+        var m = 1; // ft => m : 0.3048
+        var kg = 1 // lb => kg: 0.453592
+    </script>
+</head>
+<body>
+    <div class="cover left"></div>
+    <div class="container" id="start">
+        <h2>How many TODDLERS could you take in a fight?</h2>
+        <span class="link" data-to="info" data-rotate="right">Start</span>
+    </div>
+    <div class="container hidden" id="info">
+        <div class="input">
+            <div class="field">
+                <span>Your height:</span>
+                <input type="number" step="0.00000001" min="1" required>
+                <span class="option selected" onclick="m=1;document.querySelectorAll('.option')[0].classList.add('selected');document.querySelectorAll('.option')[1].classList.remove('selected');">m</span>
+                <span class="option" onclick="m=0.3048;document.querySelectorAll('.option')[1].classList.add('selected');document.querySelectorAll('.option')[0].classList.remove('selected');">ft</span>
+            </div>
+            <div class="field">
+                <span>Your Weight:</span>
+                <input type="number" step="0.00000001" min="1" required>
+                <span class="option selected" onclick="kg=1;document.querySelectorAll('.option')[2].classList.add('selected');document.querySelectorAll('.option')[3].classList.remove('selected');">kg</span>
+                <span class="option" onclick="kg=0.453592;document.querySelectorAll('.option')[3].classList.add('selected');document.querySelectorAll('.option')[2].classList.remove('selected');">lb</span>
+            </div>
+            <div class="field">
+                <span>Your Age:</span>
+                <input type="number" min="1" max="200" required>
+            </div>
+        </div>
+        <span class="link disabled" data-to="result" data-rotate="dont" id="calc">Calculate</span>
+    </div>
+    <div class="container hidden" id="result">
+        <h2>How many TODDLERS could you take in a fight?</h2>
+        <span id="resultNumber"></span>
+        <span class="link" data-to="start" data-rotate="left">Again</span>
+    </div>
+    <script>
+        document.querySelectorAll("span.link").forEach(link=>{
+            link.addEventListener('click',()=>{
+                link.parentElement.classList.add("hidden")
+                document.getElementById(link.dataset.to).classList.remove("hidden");
+                document.querySelector(".cover").className = `cover ${link.dataset.rotate}`;
+            })
+        })
+        const checkValidity = ()=>{
+            let valid = true;
+            document.querySelectorAll("input").forEach(inp=>{
+                if (valid) {
+                    valid = inp.checkValidity();
+                }
+            })
+            return valid;
+        }
+        document.querySelectorAll("input").forEach(inp=>{
+            inp.addEventListener('keyup',()=>{
+                if(checkValidity()){
+                    inp.parentElement.parentElement.parentElement.querySelector(".link").classList.remove("disabled");
+                }else{
+                    inp.parentElement.parentElement.parentElement.querySelector(".link").classList.add("disabled");
+                }
+            })
+            
+        })
+        const calculate = (h, w, a)=>{
+            const number = Math.floor((h*m*w*kg*a)/4);
+            document.getElementById("resultNumber").innerHTML=`You can take in <b>${number}</b> toddlers.`
+        }
+        document.getElementById("calc").addEventListener("click",(e)=>{
+            const s = e.target;
+            const [h, w, a] = Array.from(document.querySelectorAll("input")).map(inp=>inp.value)
+            s.parentElement.querySelectorAll("input").forEach(inp=>{
+                inp.value = "";
+            })
+            calculate(h, w, a);
+        })
+    </script>
+</body>
+</html>

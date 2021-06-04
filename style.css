@@ -1,0 +1,110 @@
+body{
+    background: #FFFFAA;
+    font-family: 'Comic Neue', cursive;
+}
+.cover{
+    position: absolute;
+    width: 80vw;
+    height: 80vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: 0 0;
+    background: #FFFFEE;
+    border-radius: 20px;
+    transition: 0.5s;
+    border: 5px solid #AAAA3322;;
+    margin: 0;
+    padding: 0;
+}
+.cover.left{
+    transform: rotate(-10deg) translate(-50%, -50%);
+}
+.cover.right{
+    transform: rotate(10deg) translate(-50%, -50%);
+}
+.cover.dont{
+    transform: rotate(90deg) translate(-50%, -50%);
+    height: calc(100vw - 10px);
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    width: 70vw;
+    height: 70vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    transition: 0.5s;
+}
+.container h2{
+    font-size: 24px;
+    text-align: center;
+    color: #888888;
+}
+.link{
+    font-size: 30px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: #727200;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.hidden{
+    opacity: 0;
+    pointer-events: none;
+}
+.input{
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+.input .field{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.input .field *{
+    margin: 10px 5px;
+}
+.input .field input{
+    width: 100px;
+    border: 1px solid #000;
+    outline: none;
+    background: #fff;
+    padding: 3px;
+    border-radius: 5px;
+    font-size: 20px;
+
+}
+.input .field .option{
+    cursor: pointer;
+}
+.input .field .option.selected{
+    text-decoration: underline;
+}
+.input .field .option:hover{
+    color:#066;
+    text-decoration: underline;
+}
+.disabled{
+    pointer-events: none;
+    filter: saturate(0.1);
+}
+#resultNumber{
+    margin: auto 0;
+}
+@media (min-width: 600px) and (orientation:landscape) {
+    .cover{
+        width: 80vh;
+        height: 80vh;
+    }
+    .container{
+        width: 70vh;
+        height: 70vh;
+    }
+}
